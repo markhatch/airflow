@@ -33,6 +33,7 @@ from airflow.utils.log.logging_mixin import ExternalLoggingMixin
 from airflow.utils.session import create_session
 from airflow.utils.state import State
 from airflow.utils.types import DagRunType
+from airflow.www.views import TaskInstanceModelView
 from tests.test_utils.config import conf_vars
 from tests.test_utils.db import clear_db_runs
 from tests.test_utils.www import check_content_in_response, check_content_not_in_response
@@ -641,17 +642,6 @@ def test_task_instance_clear(session, admin_client):
     # Now the state should be None.
     state = session.query(TaskInstance.state).filter(TaskInstance.task_id == task_id).scalar()
     assert state == State.NONE
-
-
-def test_task_instance_clear_failure(admin_client):
-    rowid = '["12345"]'  # F.A.B. crashes if the rowid is *too* invalid.
-    resp = admin_client.post(
-        "/taskinstance/action_post",
-        data={"action": "clear", "rowid": rowid},
-        follow_redirects=True,
-    )
-    assert resp.status_code == 200
-    check_content_in_response("Failed to clear task instances:", resp)
 
 
 @pytest.mark.parametrize(
