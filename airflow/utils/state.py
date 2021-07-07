@@ -33,7 +33,6 @@ class State:
     # set by the executor (t.b.d.)
     # LAUNCHED = "launched"
 
-    # set by a task
     QUEUED = "queued"
     RUNNING = "running"
     SUCCESS = "success"
@@ -64,6 +63,7 @@ class State:
         SUCCESS,
         RUNNING,
         FAILED,
+        QUEUED,
     )
 
     state_color = {
