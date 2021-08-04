@@ -1279,9 +1279,6 @@ This is the current syntax for  `./breeze <./breeze>`_:
   --upgrade-to-newer-dependencies
           Upgrades PIP packages to latest versions available without looking at the constraints.
 
-  --continue-on-pip-check-failure
-          Continue even if 'pip check' fails.
-
   -I, --production-image
           Use production image for entering the environment and builds (not for tests).
 
@@ -2434,9 +2431,6 @@ This is the current syntax for  `./breeze <./breeze>`_:
 
   --upgrade-to-newer-dependencies
           Upgrades PIP packages to latest versions available without looking at the constraints.
-
-  --continue-on-pip-check-failure
-          Continue even if 'pip check' fails.
 
   ****************************************************************************************************
    Use different Airflow version at runtime in CI image

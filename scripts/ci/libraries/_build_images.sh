@@ -1034,23 +1034,6 @@ ${COLOR_BLUE}
      ./breeze build-image --production-image --upgrade-to-newer-dependencies --python 3.6
 ${COLOR_RESET}
 
-* If you want to build the image regardless if 'pip check' fails for it, you can add
-  --continue-on-pip-check-failure flag and enter the image and inspect dependencies.
-
-CI image:
-
-${COLOR_BLUE}
-     ./breeze build-image --upgrade-to-newer-dependencies --python 3.6 --continue-on-pip-check-failure
-     docker run -it apache/airflow:main-3.6-ci bash
-${COLOR_RESET}
-
-Production image:
-
-${COLOR_BLUE}
-     ./breeze build-image --production-image --upgrade-to-newer-dependencies --python 3.6 --continue-on-pip-check-failure
-     docker run -it apache/airflow:main-3.6 bash
-${COLOR_RESET}
-
 * You will see error messages there telling which requirements are conflicting and which packages caused the
   conflict. Add the limitation that caused the conflict to EAGER_UPGRADE_ADDITIONAL_REQUIREMENTS
   variable in Dockerfile.ci. Note that the limitations might be different for Dockerfile.ci and Dockerfile

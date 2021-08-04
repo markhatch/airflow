@@ -2389,9 +2389,6 @@ ${FORMATTED_INSTALLATION_METHOD}
 --upgrade-to-newer-dependencies
         Upgrades PIP packages to latest versions available without looking at the constraints.
 
---continue-on-pip-check-failure
-        Continue even if 'pip check' fails.
-
 "
 }
 
