@@ -880,7 +880,7 @@ function build_images::tag_image() {
 # Parameters:
 #  $1 - image name to wait for
 #  $2 - fallback image to wait for
-#  $3 - suffix of the image to wait for (Remove me on 7th August 2021 after all users had chance to rebase)
+#  $3 - suffix of the image to wait for (Remove me on 15th of August 2021 after all users had chance to rebase)
 #  $4, $5, ... - target tags to tag the image with
 function build_images::wait_for_image_tag() {
 

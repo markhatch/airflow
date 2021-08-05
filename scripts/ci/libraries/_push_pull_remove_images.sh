@@ -234,7 +234,7 @@ function push_pull_remove_images::push_ci_images_to_github() {
     local airflow_ci_tagged_image="${AIRFLOW_CI_IMAGE}:${GITHUB_REGISTRY_PUSH_IMAGE_TAG}"
     docker_v tag "${AIRFLOW_CI_IMAGE}" "${airflow_ci_tagged_image}"
     push_pull_remove_images::push_image_with_retries "${airflow_ci_tagged_image}"
-    # Also push ci manifest iumage image if GITHUB_REGISTRY_PUSH_IMAGE_TAG is "latest"
+    # Also push ci manifest image if GITHUB_REGISTRY_PUSH_IMAGE_TAG is "latest"
     if [[ ${GITHUB_REGISTRY_PUSH_IMAGE_TAG} == "latest" ]]; then
         local airflow_ci_manifest_tagged_image="${AIRFLOW_CI_REMOTE_MANIFEST_IMAGE}:latest"
         docker_v tag "${AIRFLOW_CI_LOCAL_MANIFEST_IMAGE}" "${airflow_ci_manifest_tagged_image}"
