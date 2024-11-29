@@ -109,9 +109,10 @@ class WebHDFSHook(BaseHook):
         Get WebHDFS client
 
         Additional options via ``extra``:
-        - verify: path to CA certificate or boolean for verification
-        - cert: path to client certificate (mTLS only, optional)
-        - key: path to client key (mTLS only, optional)
+        - use_ssl: use SSL for the connection (default: False)
+        - verify: path to CA certificate or boolean for verification (default: False, requires `use_ssl` to be True)
+        - cert: path to client certificate (Optional, requires `use_ssl` to be True)
+        - key: path to client key (Optional, requires `use_ssl` to be True)
         """
         connection_str = f"http://{namenode}"
         session = requests.Session()
@@ -119,7 +120,16 @@ class WebHDFSHook(BaseHook):
         if password is not None:
             session.auth = (login, password)
 
-        if extra_dejson.get("use_ssl", "False") == "True" or extra_dejson.get("use_ssl", False):
+        use_ssl = extra_dejson.get("use_ssl", False)
+        if isinstance(use_ssl, str):
+            use_ssl = use_ssl.lower() == "true"
+
+        if not use_ssl and any(k in extra_dejson for k in ["verify", "cert", "key"]):
+            raise AirflowWebHDFSHookException(
+                "SSL parameters 'verify', 'cert', or 'key' provided without enabling SSL ('use_ssl' is False)."
+            )
+
+        if use_ssl:
             connection_str = f"https://{namenode}"
             session.verify = extra_dejson.get("verify", False)
 
