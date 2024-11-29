@@ -43,3 +43,5 @@ Extra (optional, connection parameters)
 
     * ``use_ssl`` - If SSL should be used. By default is set to `false`.
     * ``verify`` - How to verify SSL. For more information refer to https://docs.python-requests.org/en/master/user/advanced/#ssl-cert-verification.
+    * ``cert`` - Path to client certificate (mTLS only, optional).
+    * ``key`` - Path to client key (mTLS only, optional).

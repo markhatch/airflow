@@ -105,14 +105,33 @@ class WebHDFSHook(BaseHook):
     def _get_client(
         self, namenode: str, port: int, login: str, password: str | None, schema: str, extra_dejson: dict
     ) -> Any:
+        """
+        Get WebHDFS client
+
+        Additional options via ``extra``:
+        - verify: path to CA certificate or boolean for verification
+        - cert: path to client certificate (mTLS only, optional)
+        - key: path to client key (mTLS only, optional)
+        """
         connection_str = f"http://{namenode}"
         session = requests.Session()
+
         if password is not None:
             session.auth = (login, password)
 
         if extra_dejson.get("use_ssl", "False") == "True" or extra_dejson.get("use_ssl", False):
             connection_str = f"https://{namenode}"
             session.verify = extra_dejson.get("verify", False)
+
+            # Handle mTLS certificates
+            cert = extra_dejson.get("cert")
+            key = extra_dejson.get("key")
+
+            if cert:
+                if key:
+                    session.cert = (cert, key)
+                else:
+                    session.cert = cert
 
         if port is not None:
             connection_str += f":{port}"
